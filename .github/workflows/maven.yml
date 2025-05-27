@@ -26,13 +26,14 @@ jobs:
       - name: Run Test Automation Framework with Maven
         run: |
           mvn test -X -Dbrowser=chrome -DsikLambdaTest=true -DIsHeadless=false
-        continue-on-error: true  # Allows next steps even if tests fail
+        continue-on-error: true  # Allow workflow to continue even if tests fail
 
-      - name: Debug File Existence
+      - name: Verify Logs and Report File Before Upload
         run: |
-          echo "Checking logs and report existence..."
-          ls -R logs/ || echo "Logs directory not found!"
-          ls report.html || echo "Report file not found!"
+          echo "Checking logs directory..."
+          ls -R ${{ github.workspace }}/logs/ || echo "Logs directory not found!"
+          echo "Checking report.html..."
+          ls ${{ github.workspace }}/report.html || echo "Report file not found!"
 
       - name: Upload Test Logs
         if: always()
@@ -50,7 +51,6 @@ jobs:
 
       - name: Test Execution Status
         run: echo "Test Execution Completed"
-
 
 
 
