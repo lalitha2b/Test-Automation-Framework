@@ -24,27 +24,25 @@ jobs:
 
       - name: Running Test Automation Framework with Maven
         run: |
-              mvn test -X -Dbrowser=chrome -DsikLambdaTest=true -DIsHeadless=false || echo "Tests failed, continuing to artifact upload"
-
+          mvn test -X -Dbrowser=chrome -DsikLambdaTest=true -DIsHeadless=false || echo "Tests failed, continuing to artifact upload"
 
       - name: Upload Test logs
-  if: always()
-  uses: actions/upload-artifact@v4
-  with:
-    name: Test-logs
-    path: ./logs/**
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test-logs
+          path: ./logs/**
 
       - name: Upload Test Reports
-  if: always()
-  uses: actions/upload-artifact@v4
-  with:
-    name: Test-report
-    path: ./report.html
-
-
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test-report
+          path: ./report.html
 
       - name: Test Execution Status
         run: echo "Test Execution Completed"
+
 
 
 
