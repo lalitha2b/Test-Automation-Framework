@@ -26,31 +26,36 @@ jobs:
       - name: Run Test Automation Framework with Maven
         run: |
           mvn test -X -Dbrowser=chrome -DsikLambdaTest=true -DIsHeadless=false
-        continue-on-error: true  # Allow workflow to continue even if tests fail
+        continue-on-error: true  # Ensures workflow proceeds even if tests fail
 
-      - name: Verify Logs and Report File Before Upload
+      - name: Debug: Verify Logs and Report File Before Upload
         run: |
           echo "Checking logs directory..."
           ls -R ${{ github.workspace }}/logs/ || echo "Logs directory not found!"
           echo "Checking report.html..."
-          ls ${{ github.workspace }}/report.html || echo "Report file not found!"
+          ls -l ${{ github.workspace }}/report.html || echo "Report file not found!"
+
+      - name: Ensure Log Directory Exists
+        run: |
+          mkdir -p ${{ github.workspace }}/logs/
 
       - name: Upload Test Logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Test-logs
-          path: logs/
+          path: ${{ github.workspace }}/logs/
 
       - name: Upload Test Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Test-report
-          path: report.html
+          path: ${{ github.workspace }}/report.html
 
       - name: Test Execution Status
         run: echo "Test Execution Completed"
+
 
 
 
