@@ -24,34 +24,24 @@ jobs:
 
       - name: Running Test Automation Framework with Maven
         run: |
-          mvn test site -X -Dbrowser=chrome -DsikLambdaTest=true -DIsHeadless=false || echo "Tests failed, continuing to artifact upload"
-
-      - name: Debug - List all files
-        run: ls -R
+          mvn test -X -Dbrowser=chrome -DsikLambdaTest=true -DIsHeadless=false || echo "Tests failed, continuing to artifact upload"
 
       - name: Upload Test logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Test-logs
-          path: target/surefire-reports/
+          path: ./logs/**
 
-      - name: Upload Test Report (HTML)
+      - name: Upload Test Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Test-report
-          path: report.html
-
-      - name: Upload TestNG Output Folder
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: TestNG-output
-          path: test-output/
+          path: ./report.html
 
       - name: Test Execution Status
-        run: echo "Test Execution Completed at $(date)"
+        run: echo "Test Execution Completed"
 
 
 
