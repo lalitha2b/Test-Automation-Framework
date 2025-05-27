@@ -30,7 +30,7 @@ jobs:
           mvn test -X -Dbrowser=chrome -DsikLambdaTest=true -DIsHeadless=false
         continue-on-error: true  # Ensures workflow proceeds even if tests fail
 
-      - name: Debug: Verify Logs and Report File Before Upload
+      - name: Debug Verify Logs and Report File Before Upload
         run: |
           echo "Checking logs directory..."
           ls -R logs/ || echo "Logs directory not found!"
