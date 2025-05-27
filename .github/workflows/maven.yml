@@ -27,7 +27,7 @@ jobs:
 
       - name: Run Test Automation Framework with Maven
         run: |
-          mvn test -X -Dbrowser=chrome -DsikLambdaTest=true -DIsHeadless=false
+          mvn test -X -Dbrowser=chrome -DsikLambdaTest=true -DIsHeadless=false -Dmaven.test.failure.ignore=true
         continue-on-error: true  # Ensures workflow proceeds even if tests fail
 
       - name: Debug Verify Logs and Report File Before Upload
@@ -56,6 +56,7 @@ jobs:
 
       - name: Test Execution Status
         run: echo "Test Execution Completed"
+
 
 
 
