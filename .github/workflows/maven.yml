@@ -38,8 +38,7 @@ jobs:
           ls -l report.html || echo "Report file not found!"
 
       - name: Ensure Log Directory Exists
-        run: |
-          mkdir -p logs/
+        run: mkdir -p logs/
 
       - name: Upload Test Logs
         if: always()
@@ -57,6 +56,7 @@ jobs:
 
       - name: Test Execution Status
         run: echo "Test Execution Completed"
+
 
 
 
